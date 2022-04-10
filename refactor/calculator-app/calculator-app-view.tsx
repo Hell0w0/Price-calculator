@@ -28,7 +28,7 @@ export const CalculatorAppView: React.FC<Props> = ({
   return (
     <div className="container">
       <div className="form">
-        <h2 className="header">Calculator</h2>
+        <h2 className="title">Calculator</h2>
         <form>
           <label>
             Price:
