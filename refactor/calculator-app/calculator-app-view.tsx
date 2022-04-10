@@ -4,16 +4,26 @@ interface Props {
   price: number;
   userType: number;
   productType: number;
-  publishDate: string;
+  today: string;
   result: number | null;
+  handlePrice: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUserType: () => void;
+  handleProductType: () => void;
+  handlePublishDate: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  calculatePrice: () => void;
 }
 
 export const CalculatorAppView: React.FC<Props> = ({
   price,
   userType,
   productType,
-  publishDate,
+  today,
   result,
+  handlePrice,
+  handleUserType,
+  handleProductType,
+  handlePublishDate,
+  calculatePrice,
 }) => {
   return (
     <div className="container">
@@ -22,7 +32,12 @@ export const CalculatorAppView: React.FC<Props> = ({
         <form>
           <label>
             Price:
-            <input id="price" type="number" value={price} />
+            <input
+              id="price"
+              type="number"
+              value={price}
+              onChange={(event) => handlePrice(event)}
+            />
           </label>
           <label>
             Company user:
@@ -30,6 +45,7 @@ export const CalculatorAppView: React.FC<Props> = ({
               id="userType"
               type="checkbox"
               checked={userType === 1 ? true : false}
+              onChange={() => handleUserType()}
             />
           </label>
           <label>
@@ -38,18 +54,25 @@ export const CalculatorAppView: React.FC<Props> = ({
               id="productType"
               type="checkbox"
               checked={productType == 1 ? true : false}
+              onChange={() => handleProductType()}
             />
           </label>
           <label>
             Publish date:
-            <input
+            <input // value publishDate in string format gave invalid date for single digit months.
               id="publishDate"
-              defaultValue={publishDate}
               type="date"
+              defaultValue={today}
               max="9999-12-31"
+              onChange={(event) => handlePublishDate(event)}
             />
           </label>
-          <button id="calculate" className="button" type="button">
+          <button
+            id="calculate"
+            className="button"
+            type="button"
+            onClick={() => calculatePrice()}
+          >
             Calculate
           </button>
         </form>
