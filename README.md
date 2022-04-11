@@ -40,8 +40,9 @@ Run the following commands to setup the project.
 
 To run the Unit test and end to end test run the following command:
 
-`$ npm test`
+`$ npm run dev`
 
 In a separate terminal run:
 
-`$ npm run dev`
+`$ npm test`
+
