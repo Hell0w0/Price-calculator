@@ -20,4 +20,6 @@ test("should click around", async () => {
 
   const result = await page.$eval("#result", (el) => el.textContent);
   expect(result).toBe(expected);
+  await page.waitForTimeout(3000);
+  browser.close();
 }, 15000);
