@@ -1,6 +1,7 @@
 import * as puppeteer from "puppeteer";
 
-test("should click around", async () => {
+// Rerun test script if a new setup is done as a bug with puppeteer occurs.
+test("Runs through a calculation", async () => {
   var expected = "21";
   //Setup cromium browser
   const browser = await puppeteer.launch({
