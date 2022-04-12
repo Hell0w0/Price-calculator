@@ -2,13 +2,15 @@ import "./calculator-app.css";
 
 interface Props {
   price: number;
-  userType: number;
-  productType: number;
+  userType: string;
+  userTypeList: Array<string>;
+  productType: string;
+  productTypeList: Array<string>;
   today: string;
   result: number | null;
   handlePrice: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  handleUserType: () => void;
-  handleProductType: () => void;
+  handleUserType: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleProductType: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   handlePublishDate: (event: React.ChangeEvent<HTMLInputElement>) => void;
   calculatePrice: () => void;
 }
@@ -16,7 +18,9 @@ interface Props {
 export const CalculatorAppView: React.FC<Props> = ({
   price,
   userType,
+  userTypeList,
   productType,
+  productTypeList,
   today,
   result,
   handlePrice,
@@ -35,31 +39,45 @@ export const CalculatorAppView: React.FC<Props> = ({
             <input
               id="price"
               type="number"
-              value={price}
+              defaultValue={price}
               onChange={(event) => handlePrice(event)}
             />
           </label>
           <label>
-            Company user:
-            <input
+            User type:
+            <select
               id="userType"
-              type="checkbox"
-              checked={userType === 1 ? true : false}
-              onChange={() => handleUserType()}
-            />
+              value={userType}
+              onChange={(event) => handleUserType(event)}
+            >
+              {userTypeList.map((type, index) => {
+                return (
+                  <option value={type} key={index}>
+                    {type}
+                  </option>
+                );
+              })}
+            </select>
           </label>
           <label>
             New product:
-            <input
+            <select
               id="productType"
-              type="checkbox"
-              checked={productType == 1 ? true : false}
-              onChange={() => handleProductType()}
-            />
+              value={productType}
+              onChange={(event) => handleProductType(event)}
+            >
+              {productTypeList.map((type, index) => {
+                return (
+                  <option value={type} key={index}>
+                    {type}
+                  </option>
+                );
+              })}
+            </select>
           </label>
           <label>
             Publish date:
-            <input // value publishDate in string format gave invalid date for single digit months.
+            <input //publishDate.toISOString gave invalid date for single digit months when using keyboard.
               id="publishDate"
               type="date"
               defaultValue={today}
@@ -78,7 +96,7 @@ export const CalculatorAppView: React.FC<Props> = ({
         </form>
         <div className="result-container">
           Result:
-          {result !== null ? <span id="result">{result}</span> : <span></span>}
+          <span id="result">{result}</span>
         </div>
       </div>
     </div>
